@@ -14,13 +14,20 @@ const CartScreen = ({ navigation }) => {
     const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
+        console.log("Cart items: " ,cartItems);
         calculateTotalPrice();
     }, [cartItems]);
 
     const calculateTotalPrice = () => {
         let total = 0;
         cartItems.forEach(item => {
-            total += item.price * item.quantity * 1000;
+            const price = parseFloat(item.price);
+            const quantity = parseInt(item.quantity, 10);
+            if (!isNaN(price) && !isNaN(quantity)) {
+                total += price * quantity * 1000000;
+            } else {
+                console.warn(`Invalid price or quantity for item: ${item.name}`);
+            }
         });
         setTotalPrice(total);
     };
@@ -68,8 +75,8 @@ const CartScreen = ({ navigation }) => {
                 {cartItems.map(item => (
                     <View key={item.id} style={styles.item}>
                         <Image source={{ uri: item.img }} style={styles.image} />
-                        <View style={{ padding: 20, justifyContent: 'space-between', gap: 10 }}>
-                            <Text>{item.name} | <Text style={{ color: 'gray' }}>{item.type ? 'Ưa bóng' : 'Ưa râm'}</Text>
+                        <View style={{ padding: 10, justifyContent: 'space-between', gap: 5 }}>
+                            <Text style={{marginBottom: 5}}>{item.name} <Text style={{ color: 'gray' }}>{'\n'}{item.type}</Text>
                                 {'\n'}{item.price} đ</Text>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <TouchableOpacity onPress={() => { dispatch(truItem(item)) }}
@@ -87,8 +94,9 @@ const CartScreen = ({ navigation }) => {
                             </View>
 
                             <View>
-                                <Text>Tạm tính :
-                                    <Text style={{ color: 'red' }}> {formatPrice(item.price * item.quantity * 1000)}</Text></Text>
+                            <Text style={{ color: 'red' }}>
+                                        {formatPrice(parseFloat(item.price) * parseInt(item.quantity, 10) * 1000000)}
+                                    </Text>
                             </View>
                         </View>
                     </View>
