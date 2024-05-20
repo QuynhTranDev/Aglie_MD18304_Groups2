@@ -1,7 +1,7 @@
 import { FlatList, Image, ImageBackground, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
-export const URL = 'http://192.168.1.8:3000'
+export const URL = 'http://192.168.1.206:3000'
 
 // Home ip: 192.168.1.8
 // 192.168.1.14 
