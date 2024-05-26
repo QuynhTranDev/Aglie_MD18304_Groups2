@@ -6,7 +6,10 @@
       "email": "admin",
       "pass": "admin",
       "avatar": "https://i.pinimg.com/474x/6d/50/9d/6d509d329b23502e4f4579cbad5f3d7f.jpg",
-      "role": "admin"
+      "role": "admin",
+      "img": "https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/08/hinh-nen-anime-4k.jpg",
+      "address": "Ha Noi",
+      "phone": "123"
     },
     {
       "id": "718d",
@@ -150,17 +153,6 @@
       "quantity": "156",
       "status": "1",
       "description": "Chất lượng tốt, sản phẩm cao cấp"
-    },
-    {
-      "img": "https://assets.adidas.com/images/w_600,f_auto,q_auto/15f80ece456b4b819c271cf32b88c1eb_9366/X_PLRPHASE_Shoes_Black_IG4766_01_standard.jpg",
-      "name": "ADIDAS XXX",
-      "type": "MKPO12",
-      "price": "2.000.000 ₫",
-      "origin": "Chau Phi",
-      "size": "1",
-      "quantity": "12",
-      "description": "Chat luong tot, very good",
-      "id": "33dd"
     }
   ],
   "search": [

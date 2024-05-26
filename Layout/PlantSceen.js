@@ -44,22 +44,40 @@ const PlantScreen = ({ navigation, route }) => {
     );
 
     const handleDelete = async (id, type) => {
-        let url = type === 'Nike' ? `${URL}/plants/${id}` : `${URL}/plantas/${id}`;
+        Alert.alert(
+            'Xác nhận',
+            'Bạn có chắc chắn muốn xóa sản phẩm này không?',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'OK',
+                    onPress: async () => {
+                        const url = `${URL}/plants/${id}`;
+                        try {
+                            const response = await fetch(url, {
+                                method: 'DELETE'
+                            });
 
-        try {
-            const response = await fetch(url, {
-                method: 'DELETE'
-            });
-
-            if (response.ok) {
-                Alert.alert('Xóa sản phẩm thành công');
-                setData(prevData => prevData.filter(item => item.id !== id));
-            } else {
-                Alert.alert('Xóa sản phẩm thất bại');
-            }
-        } catch (error) {
-            Alert.alert('Lỗi', 'Không thể xóa sản phẩm');
-        }
+                            if (response.ok) {
+                                Alert.alert('Xóa sản phẩm thành công');
+                                setData(prevData => prevData.filter(item => item.id !== id));
+                            } else {
+                                const errorData = await response.json();
+                                console.error('Error deleting product:', errorData);
+                                Alert.alert('Xóa sản phẩm thất bại');
+                            }
+                        } catch (error) {
+                            console.error('Error:', error);
+                            Alert.alert('Lỗi', 'Không thể xóa sản phẩm');
+                        }
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
     };
 
     const handleEdit = (item) => {
