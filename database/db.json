@@ -1,69 +1,37 @@
 {
   "users": [
     {
-      "id": "2",
-      "email": "sang@gmail.com",
-      "pass": "sang123",
-      "avatar": "https://i.pinimg.com/474x/6d/50/9d/6d509d329b23502e4f4579cbad5f3d7f.jpg",
-      "fullname": "Lê Đăng Sang"
-    },
-    {
-      "id": "3",
-      "email": "a",
-      "avatar": "https://i.pinimg.com/564x/77/3d/e8/773de85e694e8f88ed08ff5509ae4355.jpg",
-      "pass": "a",
-      "fullname": "Lê Đăng Sang"
-    },
-    {
-      "id": "5161",
-      "fullname": "A van ",
-      "email": "Avan@123gmai.com",
-      "pass": "Avan",
-      "avatar": "https://i.pinimg.com/474x/6d/50/9d/6d509d329b23502e4f4579cbad5f3d7f.jpg"
-    },
-    {
-      "id": "c24c",
-      "fullname": "A van ciu",
-      "email": "Avan",
-      "pass": "Avan",
-      "avatar": "https://i.pinimg.com/474x/6d/50/9d/6d509d329b23502e4f4579cbad5f3d7f.jpg"
-    },
-    {
-      "id": "b3af",
-      "fullname": "Sằm A Lửng",
-      "email": "Alufpt@gmail.com",
-      "pass": "Alu123",
-      "avatar": "https://i.pinimg.com/474x/6d/50/9d/6d509d329b23502e4f4579cbad5f3d7f.jpg"
-    },
-    {
-      "id": "bc50",
-      "fullname": "Van A",
-      "email": "avan@gmail.com",
-      "pass": "a1231",
-      "avatar": "https://i.pinimg.com/474x/6d/50/9d/6d509d329b23502e4f4579cbad5f3d7f.jpg"
-    },
-    {
-      "id": "18d7",
-      "fullname": "B nguyen",
-      "email": "bnguyen@gmail.com",
-      "pass": "abc",
-      "avatar": "https://i.pinimg.com/474x/6d/50/9d/6d509d329b23502e4f4579cbad5f3d7f.jpg"
-    },
-    {
       "id": "92c5",
       "fullname": "Admin",
       "email": "admin",
       "pass": "admin",
-      "avatar": "https://i.pinimg.com/474x/6d/50/9d/6d509d329b23502e4f4579cbad5f3d7f.jpg"
+      "avatar": "https://i.pinimg.com/474x/6d/50/9d/6d509d329b23502e4f4579cbad5f3d7f.jpg",
+      "role": "admin"
+    },
+    {
+      "id": "718d",
+      "fullname": "TDQ",
+      "email": "tdq@gmail.com",
+      "pass": "123",
+      "avatar": "https://i.pinimg.com/474x/6d/50/9d/6d509d329b23502e4f4579cbad5f3d7f.jpg",
+      "role": "user"
+    },
+    {
+      "id": "c9a9",
+      "fullname": "TDQ",
+      "email": "tdq1@gmail.com",
+      "pass": "123",
+      "avatar": "https://i.pinimg.com/474x/6d/50/9d/6d509d329b23502e4f4579cbad5f3d7f.jpg",
+      "role": "user"
     }
   ],
   "plants": [
     {
       "id": "1",
       "name": "Air Force 1",
-      "price": "3.250.000",
+      "price": "3.250.000 ₫",
       "img": "https://bizweb.dktcdn.net/thumb/1024x1024/100/413/335/products/duyetfashion-wmns-nike-air-force-1-07-lx-uv-reactive-da8301-100-duyet-fashion-1-jpeg-4cb058ce-80c1-417a-9ad8-68f6aae0f6da.jpg?v=1633609721267",
-      "type": "Mã SP: CW2288 111",
+      "type": "CW2288 111",
       "origin": "Châu phi",
       "quantity": "156",
       "status": "1",
@@ -73,9 +41,9 @@
     {
       "id": "2",
       "name": "Nike Air Force 1",
-      "price": "2.350.000",
+      "price": "2.350.000 ₫",
       "img": "https://0.kixify.com/sites/default/files/imagecache/sneaker_deals/product/2020/12/31/p_31725026_180324441_4881556.jpg",
-      "type": "Mã SP: CW2288 111",
+      "type": "CW2288 111",
       "origin": "Châu phi",
       "quantity": "156",
       "status": "1",
@@ -85,9 +53,9 @@
     {
       "id": "3",
       "name": "Air Force 1 Black",
-      "price": "3.120.000",
+      "price": "3.120.000 ₫",
       "img": "https://lakbay.vn/cdn1/images/202003/goods_img/mau-giay-nike-air-force1-mau-denblack-replica-tai-viet-nam-P1509-1585641321064.jpg",
-      "type": "Mã SP: CW2288 111",
+      "type": "CW2288 111",
       "origin": "Châu phi",
       "quantity": "156",
       "status": "1",
@@ -97,9 +65,9 @@
     {
       "id": "4",
       "name": "Air Force 1 Action Green",
-      "price": "2.350.000",
+      "price": "2.350.000 ₫",
       "img": "https://i.ebayimg.com/images/g/pzUAAOSwbDBliocF/s-l640.png",
-      "type": "Mã SP: CW2288 111",
+      "type": "CW2288 111",
       "origin": "Châu phi",
       "quantity": "156",
       "status": "1",
@@ -109,9 +77,9 @@
     {
       "id": "5",
       "name": "Air Force 1 (Nữ)",
-      "price": "2.350.000",
+      "price": "2.350.000 ₫",
       "img": "https://lakbay.vn/cdn1/images/202007/goods_img/mau-giay-nike-air-force-1-phan-quang-cuc-dep-danh-cho-ban-nu-P1542-1595564418444.jpg",
-      "type": "Mã SP: CW2288 111",
+      "type": "CW2288 111",
       "origin": "Châu phi",
       "quantity": "156",
       "status": "1",
@@ -121,23 +89,34 @@
     {
       "id": "6",
       "name": "Air Force ",
-      "price": "3.350.000",
+      "price": "3.350.000 ₫",
       "img": "https://cdn.vuahanghieu.com/unsafe/0x0/left/top/smart/filters:quality(90)/https://admin.vuahanghieu.com/upload/news/content/2024/03/giay-the-thao-nike-air-force-1-shadow-ci0919-116-phoi-mau-1-jpg-1709522041-04032024101401.jpg",
-      "type": "Mã SP: CW2288 111",
+      "type": "CW2288 111",
       "origin": "Châu phi",
       "quantity": "156",
       "status": "1",
       "size": "Big",
       "description": "Chất lượng tốt, sản phẩm cao cấp"
+    },
+    {
+      "img": "https://bizweb.dktcdn.net/thumb/1024x1024/100/413/335/products/duyetfashion-wmns-nike-air-force-1-07-lx-uv-reactive-da8301-100-duyet-fashion-1-jpeg-4cb058ce-80c1-417a-9ad8-68f6aae0f6da.jpg?v=1633609721267",
+      "name": "Nike Super Speed",
+      "type": "MKL1233",
+      "price": "1.200.000 ₫",
+      "origin": "Chau A",
+      "size": "1",
+      "quantity": "12",
+      "description": "New Goods",
+      "id": "6e10"
     }
   ],
   "plantas": [
     {
       "id": "plt1",
       "name": "Giày ADIDAS X_PLRPHASE",
-      "price": "2.250.000",
+      "price": "2.250.000 ₫",
       "img": "https://assets.adidas.com/images/w_600,f_auto,q_auto/2dda4a9720c14b7bb5e94aee68bda170_9366/X_PLRPHASE_Shoes_White_IG4767_01_standard.jpg",
-      "type": "Mã SP: IG4782",
+      "type": "IG4782",
       "quantity": "156",
       "status": "1",
       "description": "Chất lượng tốt, sản phẩm cao cấp"
@@ -145,9 +124,9 @@
     {
       "id": "plt12",
       "name": "Giày ADIDAS X_PLRPHASE Đen",
-      "price": "1.250.000",
+      "price": "1.250.000 ₫",
       "img": "https://assets.adidas.com/images/w_600,f_auto,q_auto/15f80ece456b4b819c271cf32b88c1eb_9366/X_PLRPHASE_Shoes_Black_IG4766_01_standard.jpg",
-      "type": "Mã SP: IG4782",
+      "type": "IG4782",
       "quantity": "156",
       "status": "1",
       "description": "Chất lượng tốt, sản phẩm cao cấp"
@@ -155,9 +134,9 @@
     {
       "id": "plt13",
       "name": "ADIDAS RUN FALCON",
-      "price": "4.250.000",
+      "price": "4.250.000 ₫",
       "img": "https://assets.adidas.com/images/w_600,f_auto,q_auto/f9d52817f7524d3fb442af3b01717dfa_9366/Giay_Runfalcon_3_DJen_HQ3790_01_standard.jpg",
-      "type": "Mã SP: IG4782",
+      "type": "IG4782",
       "quantity": "156",
       "status": "1",
       "description": "Chất lượng tốt, sản phẩm cao cấp"
@@ -165,18 +144,33 @@
     {
       "id": "plt14",
       "name": "ADIDAS FORUM 84",
-      "price": "3.250.000",
+      "price": "3.250.000 ₫",
       "img": "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/4d4f226aeaf44ce7b9febe977c734883_9366/Giay_Forum_84_Low_trang_IE9936_01_standard.jpg",
-      "type": "Mã SP: IG4782",
+      "type": "IG4782",
       "quantity": "156",
       "status": "1",
       "description": "Chất lượng tốt, sản phẩm cao cấp"
+    },
+    {
+      "img": "https://assets.adidas.com/images/w_600,f_auto,q_auto/15f80ece456b4b819c271cf32b88c1eb_9366/X_PLRPHASE_Shoes_Black_IG4766_01_standard.jpg",
+      "name": "ADIDAS XXX",
+      "type": "MKPO12",
+      "price": "2.000.000 ₫",
+      "origin": "Chau Phi",
+      "size": "1",
+      "quantity": "12",
+      "description": "Chat luong tot, very good",
+      "id": "33dd"
     }
   ],
   "search": [
     {
       "id": "aad5",
       "txt": "Air Force 1"
+    },
+    {
+      "id": "1025",
+      "txt": "Nike Super Speed"
     }
   ],
   "carts": [
@@ -193,6 +187,27 @@
       "id_Product": "3",
       "soLuongMua": 2,
       "giaMua": "3.120.000"
+    },
+    {
+      "id": "f75d",
+      "id_bill": "2aed",
+      "id_Product": "1",
+      "soLuongMua": 2,
+      "giaMua": "3.250.000"
+    },
+    {
+      "id": "cc67",
+      "id_bill": "9fae",
+      "id_Product": "6e10",
+      "soLuongMua": 1,
+      "giaMua": "1.200.000 ₫"
+    },
+    {
+      "id": "4df9",
+      "id_bill": "a22f",
+      "id_Product": "1",
+      "soLuongMua": 4,
+      "giaMua": "3.250.000 ₫"
     }
   ],
   "notices": [],
@@ -218,6 +233,39 @@
       "status": 0,
       "ngayMua": "2024-05-19T17:41:02.779Z",
       "id": "8264"
+    },
+    {
+      "id_User": "c9a9",
+      "diaChi": "DH",
+      "soDienThoai": "123",
+      "ship": true,
+      "pay": true,
+      "total": 6515000,
+      "status": 0,
+      "ngayMua": "2024-05-22T11:00:11.410Z",
+      "id": "2aed"
+    },
+    {
+      "id_User": "718d",
+      "diaChi": "HN",
+      "soDienThoai": "123",
+      "ship": true,
+      "pay": true,
+      "total": 1215000,
+      "status": 0,
+      "ngayMua": "2024-05-26T10:13:13.861Z",
+      "id": "9fae"
+    },
+    {
+      "id_User": "92c5",
+      "diaChi": "HN",
+      "soDienThoai": "123",
+      "ship": true,
+      "pay": true,
+      "total": 13015000,
+      "status": 0,
+      "ngayMua": "2024-05-26T10:20:53.114Z",
+      "id": "a22f"
     }
   ]
 }

@@ -1,12 +1,18 @@
 import { Image, StyleSheet, Text, TextInput, View, CheckBox, TouchableOpacity, ToastAndroid, KeyboardAvoidingView, Platform, Alert, SafeAreaView } from 'react-native'
 import React, { useState } from 'react'
 import { URL } from './HomeScreen'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const Register = (props, ) => {
+const Register = (props) => {
     const [name, setname] = useState('')
     const [email, setemail] = useState('')
     const [pass2, setpass2] = useState('')
     const [pass, setpass] = useState('')
+
+    const validateEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        return regex.test(email)
+    }
 
     const addUser = async () => {
         if(name == '' || email == '' || pass == ''){
@@ -17,26 +23,51 @@ const Register = (props, ) => {
             ToastAndroid.show("Mật khẩu chưa khớp",0);
             return; 
         }
-        const url = `${URL}/users`;
-        const NewUser = {
-            fullname : name,
-            email : email,
-            pass : pass,
-            avatar : 'https://i.pinimg.com/474x/6d/50/9d/6d509d329b23502e4f4579cbad5f3d7f.jpg'
+        else if (!validateEmail(email)) {
+            ToastAndroid.show('không đúng định dạng email',0)
+            return;
         }
 
-        const res = await fetch(url,{
-            method: "POST",
-            body : JSON.stringify(NewUser),
-            headers: {
-                "Content-Type" : "application/json"
-            }
-        });
-        if(res.ok){
-            console.log(res.data);
-            ToastAndroid.show("Đăng ký thành công",0);
-            props.navigation.navigate("LoginScreen");
+        const url = `${URL}/users?email=` + email;
+        const url1 = `${URL}/users`;
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+        if (data.length > 0) {
+            throw new Error('Email đã tồn tại')
         }
+
+        return fetch(url1, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                fullname : name,
+                email: email,
+                pass: pass,
+                avatar : 'https://i.pinimg.com/474x/6d/50/9d/6d509d329b23502e4f4579cbad5f3d7f.jpg',
+                role: 'user',
+            }),
+        });
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Đăng ký tài khoản thất bại')
+            }
+            return response.json();
+        })
+        .then(async data => {
+            ToastAndroid.show('Đăng ký tài khoản thành công', 0)
+            await AsyncStorage.setItem('@userRole', 'user') 
+            setemail('')
+            setpass('')
+            props.navigation.navigate("LoginScreen");
+        })
+        .catch(error => {
+            Alert.alert('Đăng ký tài khoản thất bại', error.message)
+        })
     }
     return (
         <SafeAreaView style={{flex: 1, justifyContent: 'center'}}>

@@ -75,9 +75,9 @@ const CartScreen = ({ navigation }) => {
                 {cartItems.map(item => (
                     <View key={item.id} style={styles.item}>
                         <Image source={{ uri: item.img }} style={styles.image} />
-                        <View style={{ padding: 10, justifyContent: 'space-between', gap: 5 }}>
+                        <View style={{ padding: 10, justifyContent: 'space-between', gap: 10 }}>
                             <Text style={{marginBottom: 5}}>{item.name} <Text style={{ color: 'gray' }}>{'\n'}{item.type}</Text>
-                                {'\n'}{item.price} đ</Text>
+                                {'\n'}{item.price} </Text>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <TouchableOpacity onPress={() => { dispatch(truItem(item)) }}
                                     style={styles.btn}>
@@ -89,7 +89,7 @@ const CartScreen = ({ navigation }) => {
                                     <Image source={require('../Image/add.png')} style={styles.icon} />
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={() => { dispatch(removeItem(item)) }}>
-                                    <Text style={{ textDecorationLine: 'underline' }}>Xóa</Text>
+                                    <Text style={{ textDecorationLine: 'underline', marginLeft: 5 }}>Xóa</Text>
                                 </TouchableOpacity>
                             </View>
 
@@ -157,6 +157,7 @@ const styles = {
         padding: 7,
         borderRadius: 4,
         borderWidth: 1,
+        marginHorizontal: 4,
     }
 };
 

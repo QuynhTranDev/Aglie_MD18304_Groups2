@@ -14,8 +14,8 @@ import PlantaSceen from '../Layout/PlantaScreen';
 import CartScreen from '../Layout/CartScreen';
 import Payment2 from '../Layout/Payment2';
 import FinalBill from '../Layout/FinalBill';
-
-
+import AddScreen from '../Layout/AddScreen';
+import EditScreen from '../Layout/EditScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -74,6 +74,8 @@ const MainNavigator = () => {
             <Stack.Screen name='SearchScreen' component={SearchScreen} />
             <Stack.Screen name='FinalBill' component={FinalBill} />
             <Stack.Screen name='NoticeScreen' component={NoticeScreen} />
+            <Stack.Screen name='AddScreen' component={AddScreen}/>
+            <Stack.Screen name="EditScreen" component={EditScreen} />
         </Stack.Navigator>
     )
 }

@@ -53,22 +53,22 @@ const DetailProduct = ({ navigation, route }) => {
               <Text style={{color: 'white', fontSize: 15}}>{item.type}</Text>
             </View>
 
-            <Text style={{ fontSize: 24, fontWeight: 'bold', color: 'green' }}>{item.price} đ</Text>
+            <Text style={{ fontSize: 24, fontWeight: 'bold', color: 'green' }}>{item.price} </Text>
 
-            <ScrollView style={{ height: 200 }}>
+            <ScrollView style={{ height: 200, padding: 1}}>
               <Text>Chi tiết sản phẩm
-                {'\n'}________________________________________________
+                {'\n'}_______________________________________________
               </Text>
-              {item.size && <Text>Kích cỡ {item.size}
-                {'\n'}________________________________________________
+              {item.size && <Text>Kích cỡ: {item.size}
+                {'\n'}_______________________________________________
               </Text>}
-              {item.origin && <Text>Xuất xứ {item.origin}
-                {'\n'}________________________________________________
+              {item.origin && <Text>Xuất xứ: {item.origin}
+                {'\n'}_______________________________________________
               </Text>}
               <Text>Tình trạng <Text style={{ color: 'green' }}>còn {item.quantity} sp</Text>
-                {'\n'}________________________________________________{'\n'}
+                {'\n'}_______________________________________________{'\n'}
               </Text>
-              <Text>Mô tả : {item.description}
+              <Text>Mô tả: {item.description}
               </Text>
             </ScrollView>
           </View>

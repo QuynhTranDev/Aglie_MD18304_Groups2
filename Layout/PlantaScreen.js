@@ -1,48 +1,118 @@
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { URL } from './HomeScreen';
+import { useFocusEffect } from '@react-navigation/native';
 
-const PlantaSceen = ({ navigation, route }) => {
-    const data = route.params?.data;
+const PlantaScreen = ({ navigation, route }) => {
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [data, setData] = useState(route.params?.data || []);
+
+    const getListPlanta = async () => {
+        try {
+            const res = await fetch(`${URL}/plantas`);
+            const data = await res.json();
+            setData(data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const checkUserRole = async () => {
+        try {
+            const userInfo = await AsyncStorage.getItem('User');
+            if (userInfo) {
+                const { role } = JSON.parse(userInfo);
+                if (role === 'admin') {
+                    setIsAdmin(true);
+                }
+            }
+        } catch (error) {
+            Alert.alert('Lỗi', 'Không thể tải vai trò người dùng.');
+        }
+    };
+
+    useEffect(() => {
+        checkUserRole();
+        getListPlanta();
+    }, []);
+
+    useFocusEffect(
+        useCallback(() => {
+            getListPlanta();
+        }, [])
+    );
+
+    const handleDelete = async (id, type) => {
+        let url = type === 'ADIDAS' ? `${URL}/plants/${id}` : `${URL}/plantas/${id}`;
+
+        try {
+            const response = await fetch(url, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                Alert.alert('Xóa sản phẩm thành công');
+                setData(prevData => prevData.filter(item => item.id !== id));
+            } else {
+                Alert.alert('Xóa sản phẩm thất bại');
+            }
+        } catch (error) {
+            Alert.alert('Lỗi', 'Không thể xóa sản phẩm');
+        }
+    };
+
+    const handleEdit = (item) => {
+        navigation.navigate('EditScreen', { product: item });
+    };
 
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity  onPress={()=>navigation.goBack()}>
-                <Image style={{ width: 20, height: 20 }}
-                    source={require('../Image/back.png')}/>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Image style={{ width: 20, height: 20 }} source={require('../Image/back.png')} />
                 </TouchableOpacity>
                 <Text style={{ textAlign: 'center', fontSize: 18, fontWeight: 'bold' }}>Giày ADIDAS</Text>
-                <TouchableOpacity style={{ width: 50 }} onPress={()=>navigation.navigate('CartScreen')}>
-                <Image style={{ width: 26, height: 26 }}
-                    source={require('../Image/cart.png')}/>
+                <TouchableOpacity style={{ width: 50 }} onPress={() => navigation.navigate('CartScreen')}>
+                    <Image style={{ width: 26, height: 26 }} source={require('../Image/cart.png')} />
                 </TouchableOpacity>
             </View>
 
-            <View style={{flexDirection: 'row', gap :30, marginHorizontal: 20}}>
-                <Text style={{color: 'red'}}>Tất cả</Text>
+            <View style={{ flexDirection: 'row', gap: 30, marginHorizontal: 20 }}>
+                <Text style={{ color: 'red' }}>Tất cả</Text>
                 <Text>Hàng mới về</Text>
                 <Text>Hàng Sale</Text>
             </View>
+
             <FlatList
                 numColumns={2}
-                scrollEnabled={false}
                 data={data}
                 keyExtractor={item => item.id}
-                renderItem={({ item }) =>
+                renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => navigation.navigate("DetailProduct", { item: item })}
                         style={styles.itemPlant}>
-                        <Image source={{ uri: item.img }}
-                            style={styles.itemImage} />
+                        <Image source={{ uri: item.img }} style={styles.itemImage} />
                         <Text style={styles.itemName}>{item.name}</Text>
-                        <Text style={styles.itemType}>{item.type}</Text>
-                        <Text style={styles.price}>{item.price} đ</Text>
-                    </TouchableOpacity >} >
-            </FlatList>
+                        <Text style={styles.itemType}>Mã SP: {item.type}</Text>
+                        <Text style={styles.price}>{item.price}</Text>
+                        {isAdmin && (
+                            <View style={styles.adminActions}>
+                                <TouchableOpacity onPress={() => handleEdit(item)}>
+                                    <Text style={styles.editButton}>Sửa</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => handleDelete(item.id, item.type)}>
+                                    <Text style={styles.deleteButton}>Xóa</Text>
+                                </TouchableOpacity>
+                            </View>
+                        )}
+                    </TouchableOpacity>
+                )}
+            />
         </View>
-    )
-}
+    );
+};
 
-export default PlantaSceen
+export default PlantaScreen;
 
 const styles = StyleSheet.create({
     container: {
@@ -90,4 +160,15 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: 'red'
     },
-})
+    adminActions: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    editButton: {
+        color: 'blue',
+        marginRight: 10,
+    },
+    deleteButton: {
+        color: 'red',
+    },
+});
