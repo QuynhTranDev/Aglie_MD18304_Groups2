@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, ToastAndroid, View } from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, ToastAndroid, View, TouchableOpacity } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
 
@@ -26,36 +26,40 @@ const ProfileScreen = ({navigation, route}) => {
 
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={{ textAlign: 'center', fontSize: 18, fontWeight: 'bold' }}>PROFILE</Text>
-      </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Image style={{ width: 20, height: 20 }} source={require('../Image/back.png')} />
+        </TouchableOpacity>
+          <Text style={{ textAlign: 'center', fontSize: 18, fontWeight: 'bold' }}>PROFILE</Text>
+        </View>
 
-      <View style={styles.infor}>
-        <Image source={require('../Image/pesonal.png')} style={{ width: 60, height: 60 }} />
-        <Text>
-          <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{user.fullname}</Text>
-          {'\n'}{user.email}
-        </Text>
-      </View>
+        <View style={styles.infor}>
+          <Image source={require('../Image/pesonal.png')} style={{ width: 60, height: 60 }} />
+            <Text style={{fontSize: 17, fontWeight: 'bold' }}>Fullname: {user.fullname}</Text>
+            <Text style={{fontSize: 15, fontWeight: 'bold' }}> Email: {user.email}</Text>
+            <Text style={{fontSize: 12, fontWeight: '500'}}> Role: {user.role}</Text>
+        </View>
 
-      <View style={styles.option}>
-        <Text style={styles.textGray}>Chung 
-        {'\n'}_________________________________________________</Text>
-        <Text onPress={() => navigation.navigate('ManageUser')}>Chỉnh sửa thông tin</Text>
-        <Text>Cẩm nang</Text>
-        <Text onPress={() => navigation.navigate('NoticeScreen')}>Lịch sử giao dịch</Text>
-        <Text>Q & A</Text>
-      </View>
+        <View style={styles.option}>
+          <Text style={styles.textGray}>Chung 
+          {'\n'}_________________________________________________</Text>
+          <Text onPress={() => navigation.navigate('ManageUser')}>Chỉnh sửa thông tin</Text>
+          <Text>Cẩm nang</Text>
+          <Text onPress={() => navigation.navigate('NoticeScreen')}>Lịch sử giao dịch</Text>
+          <Text>Q & A</Text>
+        </View>
 
-      <View style={styles.option}>
-        <Text style={styles.textGray}>Bảo mật và điều khoản 
-        {'\n'}_________________________________________________</Text>
-        <Text>Điền khoản và điều kiện</Text>
-        <Text>Chính sách quyền riêng tư</Text>
-        <Text style={{color: 'red'}} onPress={()=> {navigation.navigate('LoginScreen'),ToastAndroid.show("Đã đăng xuất",0)}}>Đăng xuất</Text>
+        <View style={styles.option}>
+          <Text style={styles.textGray}>Bảo mật và điều khoản 
+          {'\n'}_________________________________________________</Text>
+          <Text>Điền khoản và điều kiện</Text>
+          <Text>Chính sách quyền riêng tư</Text>
+          <Text style={{color: 'red'}} onPress={()=> {navigation.navigate('LoginScreen'),ToastAndroid.show("Đã đăng xuất",0)}}>Đăng xuất</Text>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
@@ -72,10 +76,10 @@ const styles = StyleSheet.create({
     paddingVertical: 20
   },
   infor:{
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 20,
+    gap: 5,
   },
   option:{
     gap: 18,

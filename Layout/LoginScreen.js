@@ -1,55 +1,52 @@
-import { Image, StyleSheet, Text, TextInput, View, CheckBox, TouchableOpacity, ToastAndroid, KeyboardAvoidingView, Platform, Alert, SafeAreaView } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { URL } from './HomeScreen'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-
+import { Image, StyleSheet, Text, TextInput, View, CheckBox, TouchableOpacity, ToastAndroid, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { URL } from './HomeScreen';
 
 const LoginScreen = (props) => {
-    const [email, setemail] = useState('')
-    const [pass, setpass] = useState('')
-    const [showPass, setshowPass] = useState(true);
-    const [checkRemember, setcheckRemember] = useState(false);
-
-
+    const [email, setEmail] = useState('');
+    const [pass, setPass] = useState('');
+    const [showPass, setShowPass] = useState(true);
+    const [checkRemember, setCheckRemember] = useState(false);
 
     const CheckLogin = async () => {
-        if (email == '') {
-            ToastAndroid.show('Email không được bỏ trống',0)
+        if (email === '') {
+            ToastAndroid.show('Email không được bỏ trống', ToastAndroid.SHORT);
             return;
         }
-        if (pass == '') {
-            ToastAndroid.show('Pass không được bỏ trống',0)
+        if (pass === '') {
+            ToastAndroid.show('Pass không được bỏ trống', ToastAndroid.SHORT);
             return;
         }
 
-        let url = `${URL}/users?email=` + email
+        let url = `${URL}/users?email=` + email + `&pass=` + pass;
 
-        console.log(url);
+
         fetch(url)
             .then(res => res.json())
             .then(async data => {
-                console.log(data);
-                if (data.length != 1) {
-                    ToastAndroid.show('Email không chính xác',0);
+                if (data.length !== 1) {
+                    ToastAndroid.show('Email không chính xác', ToastAndroid.SHORT);
                     return false;
                 }
                 const user = data[0];
-                console.log(user);
-                if (user.pass != pass) {
-                    ToastAndroid.show('Pass không chính xác',0)
+                if (user.pass !== pass) {
+                    ToastAndroid.show('Pass không chính xác', ToastAndroid.SHORT);
                     return false;
                 } else {
-                    await AsyncStorage.setItem('User', JSON.stringify(user));
+                    await AsyncStorage.setItem('User', JSON.stringify(user, userRole));
+                    const userRole = user.role;
                     rememberAccount();
-                    ToastAndroid.show('Login thành công',0)
+                    ToastAndroid.show('Login thành công', ToastAndroid.SHORT);
                     props.navigation.navigate('Main');
                 }
+         
+            });
+    };
 
-            })
-    }
+ 
 
-    
-    // hàm checkremember
     const rememberAccount = async () => {
         try {
             if (checkRemember) {
@@ -64,96 +61,92 @@ const LoginScreen = (props) => {
         }
     };
 
-    // hàm lấy thông tin từ asyncStorage
+
     const retrieveData = async () => {
         try {
-            const storedemail = await AsyncStorage.getItem('email');
+            const storedEmail = await AsyncStorage.getItem('email');
             const storedPassword = await AsyncStorage.getItem('pass');
-            if (storedemail !== null && storedPassword !== null) {
-                setemail(storedemail);
-                setpass(storedPassword);
-                setcheckRemember(true);
+            if (storedEmail !== null && storedPassword !== null) {
+                setEmail(storedEmail);
+                setPass(storedPassword);
+                setCheckRemember(true);
             } else {
-                setpass('');
-                setcheckRemember(false);
+                setPass('');
+                setCheckRemember(false);
             }
         } catch (error) {
             console.error(error);
         }
     };
 
-    useEffect(() => {
-        retrieveData()
-    }, [])
-
+    useFocusEffect(
+        React.useCallback(() => {
+            retrieveData();
+            return () => {
+                setEmail('');
+                setPass('');
+                setShowPass(true);
+                setCheckRemember(false);
+            };
+        }, [])
+    );
 
     return (
-        <SafeAreaView style={{flex: 1, justifyContent: 'center', margin: 10, marginTop: 10}}>
-            <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}>
-            <View style={styles.container}>
-                <Image style={{ width: 200, height: 100 }}
-                    source={require('../Image/shoes_2.jpg')} />
-                <View style={{ gap: 20 }}>
-                    <Text style={{ fontWeight: '900', textAlign: 'center', justifyContent: 'center', fontSize: 35, marginTop: 30}}>Chào mừng bạn</Text>
-                    <Text style={{ textAlign: 'center', justifyContent: 'center', fontSize: 15, fontStyle: 'normal', fontWeight: '400' }}>Đăng nhập tài khoản</Text>
-                    <TextInput style={[styles.input, { width: '90' }]}
-                        placeholder='Nhập email hoặc số điện thoại' onChangeText={(txt) => {
-                            setemail(txt)
-                        }} 
-                        value={email || ''}/>
-                    <View style={styles.input}>
-                        <TextInput style={{width: '90%'}} secureTextEntry={showPass ? true : false}
-                            placeholder='Nhập mật khẩu' onChangeText={(txt) => {
-                                setpass(txt)
-                            }}
-                            value={pass || ''} />
-                        <TouchableOpacity onPress={()=>setshowPass(!showPass)}>
-                            <Image style={{ width: 20, height: 20, marginTop: 4 }}
-                                source={ showPass ? require('../Image/visible.png') : require('../Image/invisible.png')} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <TouchableOpacity onPress={()=>setcheckRemember(!checkRemember)}>
-                                <Image style={{ width: 20, height: 20 }}
-                                    source={checkRemember ? require('../Image/check.png') : require('../Image/circle.png')} />
+        <SafeAreaView style={{ flex: 1, justifyContent: 'center', margin: 10, marginTop: 10 }}>
+            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+                <View style={styles.container}>
+                    <Image style={{ width: 200, height: 100 }} source={require('../Image/shoes_2.jpg')} />
+                    <View style={{ gap: 20 }}>
+                        <Text style={{ fontWeight: '900', textAlign: 'center', justifyContent: 'center', fontSize: 35, marginTop: 30 }}>Chào mừng bạn</Text>
+                        <Text style={{ textAlign: 'center', justifyContent: 'center', fontSize: 15, fontStyle: 'normal', fontWeight: '400' }}>Đăng nhập tài khoản</Text>
+                        <TextInput style={[styles.input, { width: '300' }]}
+                            placeholder='Nhập email' onChangeText={(txt) => setEmail(txt)} value={email || ''} />
+                        <View style={styles.input}>
+                            <TextInput style={{ width: '90%' }} secureTextEntry={showPass}
+                                placeholder='Nhập mật khẩu' onChangeText={(txt) => setPass(txt)} value={pass || ''} />
+                            <TouchableOpacity onPress={() => setShowPass(!showPass)}>
+                                <Image style={{ width: 20, height: 20, marginTop: 4 }}
+                                    source={showPass ? require('../Image/visible.png') : require('../Image/invisible.png')} />
                             </TouchableOpacity>
-                            <Text style={{ marginLeft: 10 }}>Nhớ tài khoản</Text>
                         </View>
-                        <TouchableOpacity>
-                            <Text style={{ color: 'green', fontWeight: 'bold' }}>Forgot Password?</Text>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <TouchableOpacity onPress={() => setCheckRemember(!checkRemember)}>
+                                    <Image style={{ width: 20, height: 20 }}
+                                        source={checkRemember ? require('../Image/check.png') : require('../Image/circle.png')} />
+                                </TouchableOpacity>
+                                <Text style={{ marginLeft: 10 }}>Nhớ tài khoản</Text>
+                            </View>
+                            <TouchableOpacity>
+                                <Text style={{ color: 'green', fontWeight: 'bold' }}>Forgot Password?</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <TouchableOpacity style={styles.btn} onPress={() => CheckLogin()}>
+                            <Text style={{ fontWeight: 'bold', fontSize: 15, color: 'white' }}>Đăng nhập</Text>
                         </TouchableOpacity>
-                    </View>
-                    <TouchableOpacity style={styles.btn} onPress={() => CheckLogin()}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 15, color: 'white' }}>Đăng nhập</Text>
-                    </TouchableOpacity>
-                    <Text style={{ textAlign: 'center', color: 'green' }}>________________Hoặc________________</Text>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                        <TouchableOpacity>
-                            <Image style={styles.image}
-                                source={require('../Image/google.png')} />
-                        </TouchableOpacity>
-
-                        <TouchableOpacity>
-                            <Image style={[styles.image, { marginLeft: 40 }]}
-                                source={require('../Image/facebook.png')} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.text}>
-                        <Text>Bạn không có tài khoản?</Text>
-                        <TouchableOpacity onPress={() => { props.navigation.navigate('Register') }}>
-                            <Text style={{ color: 'green', marginLeft: 5 }}>Tạo tài khoản</Text>
-                        </TouchableOpacity>
+                        <Text style={{ textAlign: 'center', color: 'green' }}>________________Hoặc________________</Text>
+                        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                            <TouchableOpacity>
+                                <Image style={styles.image} source={require('../Image/google.png')} />
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <Image style={[styles.image, { marginLeft: 40 }]} source={require('../Image/facebook.png')} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.text}>
+                            <Text>Bạn không có tài khoản?</Text>
+                            <TouchableOpacity onPress={() => { props.navigation.navigate('Register') }}>
+                                <Text style={{ color: 'green', marginLeft: 5 }}>Tạo tài khoản</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-            </View>
-        </KeyboardAvoidingView>
+            </KeyboardAvoidingView>
         </SafeAreaView>
-    )
-}
+    );
+};
 
-export default LoginScreen
+export default LoginScreen;
 
 const styles = StyleSheet.create({
     container: {
@@ -187,4 +180,4 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
     }
-})
+});

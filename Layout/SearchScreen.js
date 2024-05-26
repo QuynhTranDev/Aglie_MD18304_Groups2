@@ -167,7 +167,7 @@ const SearchScreen = ({ navigation }) => {
                               style={styles.itemImage} />
                             <View style={{ gap: 5 }}>
                               <Text style={styles.price}>{item.name}</Text>
-                              <Text style={{ fontSize: 16, color: 'red', fontWeight: "800" }}>{item.price} đ</Text>
+                              <Text style={{ fontSize: 16, color: 'red', fontWeight: "800" }}>{item.price} </Text>
                               <Text style={{fontSize: 12}}>{item.type}</Text>
                               <Text style={{fontSize: 12, fontWeight: "600"}}>Còn {item.quantity} sp</Text>
                             </View>
