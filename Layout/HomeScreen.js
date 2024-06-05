@@ -2,7 +2,7 @@ import { Alert, FlatList, Image, SafeAreaView, ScrollView, StyleSheet, Text, Tou
 import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const URL = 'http://192.168.1.15:3000';
+export const URL = 'http://192.168.1.8:3000';
 
 const HomeScreen = ({ navigation }) => {
   const [isAdmin, setIsAdmin] = useState(false);

@@ -10,7 +10,9 @@ const ManageUser = ({ navigation, route }) => {
     email: '',
     address: '',
     phone: '',
+    pass: "",
   });
+  const [showPass, setShowPass] = useState(true);
 
   const getUserInfo = async () => {
     try {
@@ -48,6 +50,7 @@ const ManageUser = ({ navigation, route }) => {
 
   useEffect(() => {
     getUserInfo();
+    setShowPass(true);
   }, []);
 
   return (
@@ -94,6 +97,17 @@ const ManageUser = ({ navigation, route }) => {
             value={userInfo.phone}
             onChangeText={(text) => setUserInfo({ ...userInfo, phone: text })}
           />
+          <View style={styles.input}>
+            <TextInput style={{ width: '90%' }} 
+              secureTextEntry={showPass}
+              placeholder='Nhập mật khẩu' 
+              onChangeText={(text) => setUserInfo({ ...userInfo, pass: text })}
+              value={userInfo.pass} />
+            <TouchableOpacity onPress={() => setShowPass(!showPass)}>
+              <Image style={{ width: 20, height: 20, marginTop: 4 }}
+                source={showPass ? require('../Image/visible.png') : require('../Image/invisible.png')} />
+            </TouchableOpacity>
+          </View>
         </View>
         <TouchableOpacity style={styles.button} onPress={handleSave}>
           <Text style={{ color: 'white' }}>LƯU THÔNG TIN</Text>
@@ -121,10 +135,16 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   input: {
-    borderWidth: 1,
+    // borderWidth: 1,
+    // borderRadius: 10,
+    // padding: 10,
+    // paddingVertical: 15,
     borderRadius: 10,
-    padding: 10,
-    paddingVertical: 15,
+    borderWidth: 1,
+    padding: 15,
+    width: '90%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   button: {
     padding: 15,

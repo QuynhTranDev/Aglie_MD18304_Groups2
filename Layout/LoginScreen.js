@@ -92,7 +92,7 @@ const LoginScreen = (props) => {
     );
 
     return (
-        <SafeAreaView style={{ flex: 1, justifyContent: 'center', margin: 10, marginTop: 10 }}>
+        <SafeAreaView style={{ flex: 1, justifyContent: 'center'}}>
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
                 <View style={styles.container}>
                     <Image style={{ width: 200, height: 100 }} source={require('../Image/shoes_2.jpg')} />
