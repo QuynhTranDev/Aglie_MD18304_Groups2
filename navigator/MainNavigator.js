@@ -31,28 +31,28 @@ function Home() {
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ color, size }) => <Image style = {{width: 20, height: 20}}
-                    source={require('../Image/home.png')} tintColor={color} />
+                    source={require('../Image/home1.png')} tintColor={color} />
                 }} />
 
             <Tab.Screen name='  ' component={SearchScreen}
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ color, size }) => <Image style = {{width: 20, height: 20}}
-                    source={require('../Image/search.png')} tintColor={color} />
+                    source={require('../Image/search1.png')} tintColor={color} />
                 }} />
 
             <Tab.Screen name='   ' component={NoticeScreen}
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ color, size }) => <Image style = {{width: 20, height: 20}}
-                    source={require('../Image/notification.png')} tintColor={color} />
+                    source={require('../Image/notification1.png')} tintColor={color} />
                 }} />
 
             <Tab.Screen name='     ' component={ProfileScreen}
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ color, size }) => <Image style = {{width: 20, height: 20}}
-                    source={require('../Image/user.png')} tintColor={color} />
+                    source={require('../Image/profile1.png')} tintColor={color} />
                 }} />
         </Tab.Navigator>
     )
