@@ -1,13 +1,21 @@
-import { Alert, FlatList, Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { Alert, FlatList, Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const URL = 'http://192.168.1.8:3000';
+export const URL = 'http://192.168.1.7:3000';
+
+const {width: screenWidth} = Dimensions.get('window');
+// 10.24.58.91
+// 192.168.1.8
+// 192.168.1.7
 
 const HomeScreen = ({ navigation }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [ListPlant, setListPlant] = useState([]);
   const [ListPlanta, setListPlanta] = useState([]);
+
+  const [imageList, setimageList] = useState([]);
+  const [currentImage, setcurrentImage] = useState(0);
 
   const getListPlant = async () => {
     await fetch(`${URL}/plants`)
@@ -28,6 +36,22 @@ const HomeScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
+    const data = [
+     { 
+       image: <Image key={"0"} style={{width: screenWidth, height: 230,}} source={require('../Image/banner_1.jpg')} resizeMode='stretch'></Image>,
+     },
+     { 
+      image: <Image style={{width: screenWidth, height: 230,}} source={require('../Image/banner_3.jpg')} resizeMode='stretch'></Image>,
+    },
+    { 
+      image: <Image style={{width: screenWidth, height: 230,}} source={require('../Image/banner_4.jpg')} resizeMode='stretch'></Image>,
+    },
+    { 
+      image: <Image style={{width: screenWidth, height: 230,}} source={require('../Image/banner_2.jpg')} resizeMode='stretch'></Image>,
+    },
+    ];
+    setimageList(data);
+
     getListPlant();
     getListPlanta();
     checkUserRole();
@@ -39,6 +63,22 @@ const HomeScreen = ({ navigation }) => {
 
     return unsubscribe;
   }, [navigation]);
+
+
+  const handleScroll = (e) => {
+    if(!e) {
+      return;
+    }
+    const {nativeEvent} = e;
+    if(nativeEvent && nativeEvent.contenOffset) {
+      const currentOffset = nativeEvent.contenOffset.x;
+      let imageIndex = 0;
+      if(nativeEvent.contenOffset.x > 0 ) {
+        imageIndex = Math.floor((nativeEvent.contenOffset.x + screenWidth / 2) / screenWidth);
+      }
+      setcurrentImage(imageIndex);
+    }
+  }
 
   const checkUserRole = async () => {
     try {
@@ -54,25 +94,36 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
-
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         
-        <View style={{ width: '100%', height: 320 }}>
+        <View style={{ width: screenWidth , height: 320 }}>
           <View>
-            <Text style={{ color: '#F79515', fontSize: 23, marginTop: 20, fontWeight: '900', marginBottom: 20 }}>
+            <Text style={{ color: '#F79515', fontSize: 23, marginTop: 30, fontWeight: '900', marginBottom: 10 }}>
               Mùa hè năng động với FOOTWEAR
             </Text>
           </View>
-          <Image style={{ width: '100%', height: 230, justifyContent: 'center' }} source={require('../Image/banner_1.jpg')} />
+          <ScrollView
+           horizontal
+          //  pagingEnabled
+           contentContainerStyle={{width: screenWidth * imageList.length, height:230}}
+           onScroll={handleScroll}
+           scrollEventThrottle={16}
+           >
+            {imageList.map((e, index) => 
+            <View key={index.toString()}>
+              {e.image} 
+            </View>
+          )}
+          </ScrollView>
+          {/* <Image style={{ width: '100%', height: 230, justifyContent: 'center' }} source={require('../Image/banner_1.jpg')} /> */}
           <TouchableOpacity onPress={() => navigation.navigate('PlantSceen', { data: ListPlant })} style={styles.newSP}>
-            <Text style={{ fontSize: 14, color: 'green', fontWeight: 'bold', marginRight: 10, textDecorationLine: 'underline' }}>Xem hàng mới về</Text>
+            <Text style={{ fontSize: 15, color: 'green', fontWeight: 'bold', textDecorationLine: 'underline' }}>Xem hàng mới về</Text>
           </TouchableOpacity>
         </View>
 
-        <Text style={{ fontSize: 22, fontWeight: 'bold', marginTop: 30, marginLeft: 10 }}>Giày Nike</Text>
+        <Text style={{ fontSize: 22, fontWeight: 'bold', marginTop: 10, marginLeft: 10 }}>Giày Nike</Text>
 
         <FlatList
           numColumns={2}
@@ -209,7 +260,7 @@ const styles = StyleSheet.create({
   },
   newSP: {
     bottom: 0,
-    marginLeft: 10,
+    marginTop: 10,
   },
   addButton: {
     backgroundColor: 'blue',

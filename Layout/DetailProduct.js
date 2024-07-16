@@ -49,11 +49,11 @@ const DetailProduct = ({ navigation, route }) => {
           <Image source={{ uri: item.img }} style={{ width: '100%', height: 300 }} />
 
           <View style={{ gap: 16, paddingHorizontal: 50 }}>
-            <View style={{ width: 200, padding: 10, borderRadius: 10, backgroundColor: 'green', alignItems: 'center' }}>
+            <View style={{ width: 200, padding: 10, borderRadius: 10, backgroundColor: '#3670E1', alignItems: 'center' }}>
               <Text style={{color: 'white', fontSize: 15}}>{item.type}</Text>
             </View>
 
-            <Text style={{ fontSize: 24, fontWeight: 'bold', color: 'green' }}>{item.price} </Text>
+            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#EB4F26' }}>{item.price} </Text>
 
             <ScrollView style={{ height: 200, padding: 1}}>
               <Text>Chi tiết sản phẩm
@@ -65,7 +65,7 @@ const DetailProduct = ({ navigation, route }) => {
               {item.origin && <Text>Xuất xứ: {item.origin}
                 {'\n'}_______________________________________________
               </Text>}
-              <Text>Tình trạng <Text style={{ color: 'green' }}>còn {item.quantity} sp</Text>
+              <Text>Tình trạng: <Text style={{ color: 'green', fontWeight: "bold" }}>còn {item.quantity} sp</Text>
                 {'\n'}_______________________________________________{'\n'}
               </Text>
               <Text>Mô tả: {item.description}
@@ -77,7 +77,7 @@ const DetailProduct = ({ navigation, route }) => {
             dispatch(addItem(item))
             ToastAndroid.show('Đã thêm vào giỏ hàng',0);
           }}
-            style={{ borderRadius: 9, padding: 12, marginHorizontal: 20, alignItems: 'center', backgroundColor: 'green',
+            style={{ borderRadius: 9, padding: 12, marginHorizontal: 20, alignItems: 'center', backgroundColor: '#3670E1',
             position: 'relative', bottom: 40, width: '90%' , marginTop: 50}}>
             <Text style={{ color: 'white' }}>Thêm vào giỏ hàng</Text>
           </TouchableOpacity>
